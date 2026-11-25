@@ -25,8 +25,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <div aria-hidden className="site-backdrop" />
         <SiteHeader />
-        <div className="flex flex-1 flex-col">{children}</div>
+        <div className="relative z-10 flex flex-1 flex-col">{children}</div>
       </body>
     </html>
   );

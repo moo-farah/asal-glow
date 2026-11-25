@@ -39,15 +39,16 @@ export function MainNav({
             key={item.href}
             href={item.href}
             onClick={onNavigate}
+            aria-current={isActive ? "page" : undefined}
             className={cn(
               "text-sm transition-colors",
               orientation === "vertical" && "rounded-lg px-3 py-2.5",
               isActive
-                ? "font-medium text-foreground"
+                ? "font-medium text-primary underline decoration-2 underline-offset-4"
                 : "text-muted-foreground hover:text-foreground",
               orientation === "vertical" &&
                 isActive &&
-                "bg-muted text-foreground",
+                "bg-muted no-underline",
             )}
           >
             {item.label}
