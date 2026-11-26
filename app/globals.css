@@ -7,9 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -50,79 +51,48 @@
 
 /*
   Asal Glow
-  Midnight burgundy #430107 — page canvas
+  Midnight burgundy #430107 — background
   Powder white #FFEFEF — text
-  Amber #ECD000 — links and primary buttons (label stays burgundy)
-  Borders sit near #8E6064 so edges clear 3:1 on the canvas.
-  Muted text sits near #C7A8A9 so captions stay above 7:1.
+  Amber #ECD000 — links and buttons. Button labels stay burgundy.
+  Borders #8E6064 clear 3:1. Captions #C7A8A9 stay above 7:1.
 */
 :root {
-  --background: #430107;
-  --foreground: #ffefef;
+  --brand-burgundy: #430107;
+  --brand-powder: #ffefef;
+  --brand-amber: #ecd000;
+
+  --background: var(--brand-burgundy);
+  --foreground: var(--brand-powder);
   --card: #5a1016;
-  --card-foreground: #ffefef;
+  --card-foreground: var(--brand-powder);
   --popover: #5a1016;
-  --popover-foreground: #ffefef;
-  --primary: #ecd000;
-  --primary-foreground: #430107;
+  --popover-foreground: var(--brand-powder);
+  --primary: var(--brand-amber);
+  --primary-foreground: var(--brand-burgundy);
   --secondary: #5a1016;
-  --secondary-foreground: #ffefef;
+  --secondary-foreground: var(--brand-powder);
   --muted: #5a1016;
   --muted-foreground: #c7a8a9;
-  --accent: #64141b;
-  --accent-foreground: #ffefef;
+  --accent: var(--brand-amber);
+  --accent-foreground: var(--brand-burgundy);
   --destructive: #f3b7b4;
   --border: #8e6064;
   --input: #8e6064;
-  --ring: #ecd000;
-  --chart-1: #ecd000;
-  --chart-2: #ffefef;
+  --ring: var(--brand-amber);
+  --chart-1: var(--brand-amber);
+  --chart-2: var(--brand-powder);
   --chart-3: #c7a8a9;
   --chart-4: #8e6064;
   --chart-5: #5a1016;
   --radius: 0.625rem;
-  --sidebar: #430107;
-  --sidebar-foreground: #ffefef;
-  --sidebar-primary: #ecd000;
-  --sidebar-primary-foreground: #430107;
+  --sidebar: var(--brand-burgundy);
+  --sidebar-foreground: var(--brand-powder);
+  --sidebar-primary: var(--brand-amber);
+  --sidebar-primary-foreground: var(--brand-burgundy);
   --sidebar-accent: #5a1016;
-  --sidebar-accent-foreground: #ffefef;
+  --sidebar-accent-foreground: var(--brand-powder);
   --sidebar-border: #8e6064;
-  --sidebar-ring: #ecd000;
-}
-
-.dark {
-  --background: #430107;
-  --foreground: #ffefef;
-  --card: #5a1016;
-  --card-foreground: #ffefef;
-  --popover: #5a1016;
-  --popover-foreground: #ffefef;
-  --primary: #ecd000;
-  --primary-foreground: #430107;
-  --secondary: #5a1016;
-  --secondary-foreground: #ffefef;
-  --muted: #5a1016;
-  --muted-foreground: #c7a8a9;
-  --accent: #64141b;
-  --accent-foreground: #ffefef;
-  --destructive: #f3b7b4;
-  --border: #8e6064;
-  --input: #8e6064;
-  --ring: #ecd000;
-  --chart-1: #ecd000;
-  --chart-2: #ffefef;
-  --chart-3: #c7a8a9;
-  --chart-4: #8e6064;
-  --chart-5: #5a1016;
-  --sidebar: #430107;
-  --sidebar-foreground: #ffefef;
-  --sidebar-primary: #ecd000;
-  --sidebar-primary-foreground: #430107;
-  --sidebar-accent: #5a1016;
-  --sidebar-accent-foreground: #ffefef;
-  --sidebar-border: #8e6064;
-  --sidebar-ring: #ecd000;
+  --sidebar-ring: var(--brand-amber);
 }
 
 @layer base {
@@ -133,29 +103,21 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply bg-background font-body text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
   }
 }
 
-/* Amber light and a fine grid, fixed behind the page so content sits forward. */
-.site-backdrop {
+.brand-field {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 0;
   background-color: #430107;
-  background-image:
-    linear-gradient(to right, rgb(255 239 239 / 0.09) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 239 239 / 0.09) 1px, transparent 1px),
-    radial-gradient(ellipse 70% 45% at 50% -8%, rgb(236 208 0 / 0.34), transparent 62%),
-    radial-gradient(ellipse 32% 28% at 88% 18%, rgb(236 208 0 / 0.16), transparent 70%),
-    radial-gradient(ellipse 40% 36% at 8% 92%, rgb(90 16 22 / 0.95), transparent 68%);
-  background-size: 72px 72px, 72px 72px, auto, auto, auto;
-  mask-image: radial-gradient(ellipse at 50% 20%, black 30%, transparent 78%);
-}
-
-@media (max-width: 640px) {
-  .site-backdrop {
-    background-size: 48px 48px, 48px 48px, auto, auto, auto;
-  }
+  background-image: none;
 }
