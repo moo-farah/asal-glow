@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AccountMenu } from "./account-menu";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
 
@@ -21,6 +22,7 @@ export function SiteHeader() {
         <MainNav />
 
         <div className="flex items-center gap-1">
+          <AccountMenu />
           <Button
             variant="ghost"
             size="icon"
