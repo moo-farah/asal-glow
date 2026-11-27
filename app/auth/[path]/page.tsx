@@ -1,5 +1,6 @@
 import { viewPaths } from "@better-auth-ui/core";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { Auth } from "@/components/auth/auth";
 
 const validAuthPaths = new Set(
@@ -8,7 +9,7 @@ const validAuthPaths = new Set(
   ),
 );
 
-export default async function AuthPage({
+async function AuthView({
   params,
 }: {
   params: Promise<{ path: string }>;
@@ -21,5 +22,23 @@ export default async function AuthPage({
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center px-4 py-16">
       <Auth path={path} />
     </main>
+  );
+}
+
+export default function AuthPage({
+  params,
+}: {
+  params: Promise<{ path: string }>;
+}) {
+  return (
+    <Suspense
+      fallback={
+        <main className="mx-auto flex w-full max-w-md flex-1 items-center px-4 py-16">
+          <p className="text-sm text-muted-foreground">Loading…</p>
+        </main>
+      }
+    >
+      <AuthView params={params} />
+    </Suspense>
   );
 }

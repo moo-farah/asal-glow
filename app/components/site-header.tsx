@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AccountMenu } from "./account-menu";
@@ -10,7 +11,9 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border bg-background">
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between gap-4 px-4">
         <div className="flex items-center gap-2">
-          <MobileNav />
+          <Suspense fallback={null}>
+            <MobileNav />
+          </Suspense>
           <Link
             href="/"
             className="font-heading text-lg tracking-tight text-foreground md:text-xl"
@@ -19,10 +22,14 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        <MainNav />
+        <Suspense fallback={null}>
+          <MainNav />
+        </Suspense>
 
         <div className="flex items-center gap-1">
-          <AccountMenu />
+          <Suspense fallback={<div className="size-8" aria-hidden />}>
+            <AccountMenu />
+          </Suspense>
           <Button
             variant="ghost"
             size="icon"
